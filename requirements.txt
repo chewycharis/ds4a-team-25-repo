@@ -1,0 +1,9 @@
+pandas
+numpy
+langdetect 
+nltk
+bertopic
+PyPDF2
+scikit-learn
+python-dotenv
+openai

@@ -1,0 +1,4 @@
+# ignore credentials
+.env
+# ignore my resume 
+sample_resume.pdf
