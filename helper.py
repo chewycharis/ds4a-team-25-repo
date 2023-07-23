@@ -39,7 +39,23 @@ def suggestion_llm(clean_resume, job_description):
 
   return response 
 
+def summary_llm(dirty_job_description):
+  content = f"""
+  Please keep your response to 256 tokens without cut-off sentences.
+  Give me a brief summary of job description, be sure to highlight the responsibilities, required skills and required experiences: \n
+  {dirty_job_description}
+  """
+  response = openai.ChatCompletion.create(
+    model="gpt-3.5-turbo",
+    messages= [{"role":"user", "content" : content}],
+    temperature=1,
+    max_tokens=256,
+    top_p=1,
+    frequency_penalty=0,
+    presence_penalty=0
+  )
 
+  return response 
 
 def determine_role(user_input):
     if "data analyst" in user_input:
@@ -53,22 +69,22 @@ def determine_role(user_input):
 def present_jobs(top_5_jobs_df, k=0):
     top_job = top_5_jobs_df.iloc[k]
     print("Company Name:", top_job["Company Name"])
-    print("Job Title:", top_job["clean_job_title"])
+    print("Job Title:", top_job["Job Title"])
     print("Location:", top_job["Location"])
     print("Industry:", top_job["Industry"])
     print("Company Size:", top_job["Size"])
     print("Salary Estimate ($):", top_job["Salary_Estimate_Lower_Bound"] ,"-", top_job["Salary_Estimate_Upper_Bound"])
-    print("Job Description:", top_job["clean_job_description"])
+    print("Original Job Description:\n", top_job["Job Description"])
 
 def find_top_k_jobs(clean_resume, role= "data analyst", k=5):
    if role == "data analyst":
-      job_postings = pd.read_csv("./data/data_analyst_job_postings_local.csv")
+      job_postings = pd.read_csv("./data/data_analyst_job_postings_local_dirty.csv")
       job_postings_embeddings = np.load("./data/data_analyst_job_postings_embeddings.npy")
    if role =="data engineer":
-      job_postings = pd.read_csv("./data/data_engineer_job_postings_local.csv")
+      job_postings = pd.read_csv("./data/data_engineer_job_postings_local_dirty.csv")
       job_postings_embeddings = np.load("./data/data_engineer_job_postings_embeddings.npy")
    if role == "data scientist": 
-      job_postings = pd.read_csv("./data/data_scientist_job_postings_local.csv")
+      job_postings = pd.read_csv("./data/data_scientist_job_postings_local_dirty.csv")
       job_postings_embeddings = np.load("./data/data_scientist_job_postings_embeddings.npy")
 
    sentence_model = SentenceTransformer("all-MiniLM-L6-v2")

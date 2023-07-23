@@ -11,7 +11,7 @@ import pandas as pd
 # nltk.download('wordnet')
 # nltk.download('omw-1.4')
 
-from helper import resume_cleaning, find_top_k_jobs, present_jobs, determine_role, suggestion_llm
+from helper import resume_cleaning, find_top_k_jobs, present_jobs, determine_role, suggestion_llm, summary_llm
 
 
 def main():
@@ -42,11 +42,25 @@ def main():
     print("Here is the first job posting we found in our data base that matches your resume the best:")
     k=0
     present_jobs(top_5_jobs_df,k)
+
+    user_input_summary = input("Would you like a summarized version of this job description? (Yes/No)\n")
+    if user_input_summary.lower() == "yes":
+        print("Summary in progress...")
+        dirty_job_description = top_5_jobs_df.iloc[k]["Job Description"]
+        summary_response = summary_llm(dirty_job_description)
+        try:
+            summary = summary_response.choices[0].message.content
+            print(summary)
+        except:
+            print ("Sorry, something went wrong.")
+        print("\n")
+
     user_input_suggestion = input("Would you like suggestions on improving your resume for this job? (Yes/No) \n")
     if user_input_suggestion.lower() == "yes":
         print("Suggestion generation in progress...")
         job_description = top_5_jobs_df.iloc[k]["lemmatized_job_description"]
         suggestion_response = suggestion_llm(clean_resume, job_description)
+
         try:
             suggestion = suggestion_response.choices[0].message.content
             print(suggestion)
@@ -62,6 +76,18 @@ def main():
         else:
             print("Here is the another job posting we found in our data base that matches your resume well:")
             present_jobs(top_5_jobs_df,k)
+            user_input_summary = input("Would you like a summarized version of this job description? (Yes/No)\n")
+            if user_input_summary.lower() == "yes":
+                print("Summary in progress...")
+                dirty_job_description = top_5_jobs_df.iloc[k]["Job Description"]
+                summary_response = summary_llm(dirty_job_description)
+                try:
+                    summary = summary_response.choices[0].message.content
+                    print(summary)
+                except:
+                    print ("Sorry, something went wrong.")
+                print("\n")
+
             user_input_suggestion = input("Would you like suggestions on tailoring your resume to this job? (Yes/No) \n")
             if user_input_suggestion.lower() == "yes":
                 print("Suggestion generation in progress...")
