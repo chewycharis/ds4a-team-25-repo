@@ -3,7 +3,7 @@
 This is a DS4A/Women project by Team 25 created from June to July of 2023. 
 <br>For more about the program, please visit https://www.correlation-one.com/data-skills-for-all.
 <br>For visualizations on our database, please check out this [Tableau dasboard](https://public.tableau.com/app/profile/chuhui.fu/viz/Book1_16895323042590/Dashboard1?publish=yes). 
-
+<br>For a one-pager on the entire project, please take a look at the [datafolio](https://github.com/chewycharis/ds4a-team-25-repo/blob/main/Datafolio.pdf). For more details, check out [these google slides](https://docs.google.com/presentation/d/1G7E3fRn6jOg0URo1g-cW5dPgTBEamaQ_ng7XOijWZLA/edit?usp=sharing).
 
 ### How to use this app? 
 <ol>
