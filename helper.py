@@ -78,13 +78,13 @@ def present_jobs(top_5_jobs_df, k=0):
 
 def find_top_k_jobs(clean_resume, role= "data analyst", k=5):
    if role == "data analyst":
-      job_postings = pd.read_csv("./data/data_analyst_job_postings_local_dirty.csv")
+      job_postings = pd.read_csv("./data/data_analyst_job_postings_local.csv",sep="|")
       job_postings_embeddings = np.load("./data/data_analyst_job_postings_embeddings.npy")
    if role =="data engineer":
-      job_postings = pd.read_csv("./data/data_engineer_job_postings_local_dirty.csv")
+      job_postings = pd.read_csv("./data/data_engineer_job_postings_local.csv",sep="|")
       job_postings_embeddings = np.load("./data/data_engineer_job_postings_embeddings.npy")
    if role == "data scientist": 
-      job_postings = pd.read_csv("./data/data_scientist_job_postings_local_dirty.csv")
+      job_postings = pd.read_csv("./data/data_scientist_job_postings_local.csv", sep="|")
       job_postings_embeddings = np.load("./data/data_scientist_job_postings_embeddings.npy")
 
    sentence_model = SentenceTransformer("all-MiniLM-L6-v2")

@@ -1,9 +1,8 @@
-pandas
-numpy
-langdetect 
-nltk
-bertopic
-PyPDF2
-scikit-learn
-python-dotenv
-openai
+bertopic==0.15.0
+nltk==3.7
+numpy==1.24.3
+openai==0.27.8
+pandas==1.5.2
+python-dotenv==1.0.0
+scikit-learn==1.2.0
+pypdf2==3.0.1
